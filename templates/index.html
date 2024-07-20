@@ -18,21 +18,27 @@
 				<table id="data-table">
 					<thead>
 						<tr>
-							<th>Item SKU</th>
-							<th>Item Name</th>
+							<th>Sales Name</th>
+							<th>Sales Email</th>
 							<th>Total Sales</th>
 							<th>Total Income</th>
 							<th>Frequency</th>
+							<th>Total Discount</th>
+							<th>Total Cost</th>
+							<th>Total Profit</th>
 						</tr>
 					</thead>
 					<tbody>
 						{% for row in data %}
 						<tr>
-							<td>{{ row['item sku'] }}</td>
-							<td>{{ row['Item Name'] }}</td>
+							<td>{{ row['sales name'] }}</td>
+							<td>{{ row['Sales Name'] }}</td>
 							<td>{{ row['Total Sales'] }}</td>
 							<td>{{ row['Total Income'] }}</td>
 							<td>{{ row['Frequency'] }}</td>
+							<td>{{ row['Total Discount'] }}</td>
+							<td>{{ row['Total Cost'] }}</td>
+							<td>{{ row['Total Profit'] }}</td>
 						</tr>
 						{% endfor %}
 					</tbody>
@@ -44,80 +50,75 @@
 					<li>Total Sales: {{ weights[0] }}</li>
 					<li>Total Income: {{ weights[1] }}</li>
 					<li>Frequency: {{ weights[2] }}</li>
+					<li>Total Discount: {{ weights[3] }}</li>
+					<li>Total Cost: {{ weights[4] }}</li>
+					<li>Total Profit: {{ weights[5] }}</li>
 				</ul>
 			</div>
-			<div id="matrix-section">
+			<div id="limit-supermatrix-section">
 				<h2>Limit Supermatrix</h2>
-				<table id="matrix-table">
+				<table id="limit-supermatrix-table">
 					<thead>
 						<tr>
-							<th></th>
-							{% for col in limit_matrix.keys() %}
-							<th>{{ col }}</th>
-							{% endfor %}
+							<th>Criteria</th>
+							<th>Total Sales</th>
+							<th>Total Income</th>
+							<th>Frequency</th>
+							<th>Total Discount</th>
+							<th>Total Cost</th>
+							<th>Total Profit</th>
 						</tr>
 					</thead>
 					<tbody>
-						{% for row_label, row in limit_matrix.items() %}
+						{% for index, row in limit_matrix.items() %}
 						<tr>
-							<td>{{ row_label }}</td>
-							{% for col_label, val in row.items() %}
-							<td>{{ val }}</td>
-							{% endfor %}
+							<td>{{ index }}</td>
+							<td>{{ row['Total Sales'] }}</td>
+							<td>{{ row['Total Income'] }}</td>
+							<td>{{ row['Frequency'] }}</td>
+							<td>{{ row['Total Discount'] }}</td>
+							<td>{{ row['Total Cost'] }}</td>
+							<td>{{ row['Total Profit'] }}</td>
 						</tr>
 						{% endfor %}
 					</tbody>
 				</table>
 			</div>
-			<div id="explanation-section">
-				<h2>Penjelasan ANP</h2>
+			<div id="conclusions-section">
+				<h2>Conclusions</h2>
 				<p>
-					<strong>Local Weights</strong> menunjukkan bobot relatif dari
-					masing-masing kriteria berdasarkan perbandingan berpasangan langsung.
-					Ini adalah hasil awal yang memberikan pandangan tentang pentingnya
-					setiap kriteria tanpa mempertimbangkan hubungan feedback dan
-					dependensi di antara elemen.
-				</p>
-				<p>
-					<strong>Limit Supermatrix</strong> menunjukkan bobot relatif dari
-					masing-masing kriteria setelah mempertimbangkan hubungan feedback dan
-					dependensi di antara elemen. Ini adalah hasil akhir dari proses ANP
-					yang mencerminkan pengaruh global dari semua elemen dalam sistem.
-				</p>
-			</div>
-			<div id="decision-section">
-				<h2>Keputusan Berdasarkan Hasil ANP</h2>
-				<p>
-					Berdasarkan hasil ANP, kita dapat mengambil keputusan sebagai berikut:
+					Berdasarkan hasil analisis ANP, berikut adalah beberapa keputusan yang
+					dapat diambil:
 				</p>
 				<ul>
 					<li>
-						<strong>Fokus pada Peningkatan Pendapatan:</strong> Karena
-						<strong>Total Income</strong> memiliki bobot tertinggi ({{
-						weights[1] }}), strategi yang dapat meningkatkan pendapatan harus
-						menjadi prioritas utama. Ini bisa mencakup peningkatan harga produk
-						dengan permintaan tinggi, promosi produk dengan margin keuntungan
-						lebih tinggi, dan menawarkan bundling produk.
+						<strong>Meningkatkan Penjualan:</strong> Fokus pada item dengan
+						<strong>Total Sales</strong> yang tinggi untuk meningkatkan
+						keuntungan.
 					</li>
 					<li>
-						<strong
-							>Optimisasi Inventaris Berdasarkan Penjualan dan
-							Pendapatan:</strong
-						>
-						Dengan bobot <strong>Total Sales</strong> sebesar ({{ weights[0]
-						}}), pastikan produk yang terjual dengan volume tinggi selalu
-						tersedia di inventaris untuk memaksimalkan kesempatan penjualan dan
-						pendapatan. Identifikasi produk yang berkontribusi besar pada total
-						penjualan dan pendapatan, dan pastikan stoknya mencukupi.
+						<strong>Optimalisasi Pendapatan:</strong> Prioritaskan item dengan
+						<strong>Total Income</strong> yang tinggi untuk memaksimalkan
+						pendapatan.
 					</li>
 					<li>
-						<strong>Frekuensi Penjualan Sebagai Faktor Tambahan:</strong>
-						Meskipun <strong>Frequency</strong> memiliki bobot yang lebih rendah
-						({{ weights[2] }}), produk yang sering terjual mungkin memiliki
-						loyalitas pelanggan yang tinggi atau permintaan yang stabil.
-						Menggunakan informasi ini untuk mempertahankan stok produk yang
-						sering terjual untuk memastikan kepuasan pelanggan dan penjualan
-						berulang.
+						<strong>Meningkatkan Frekuensi Pembelian:</strong> Perhatikan item
+						dengan <strong>Frequency</strong> tinggi untuk strategi promosi
+						lebih lanjut.
+					</li>
+					<li>
+						<strong>Meminimalkan Diskon:</strong> Mengelola
+						<strong>Total Discount</strong> agar tidak terlalu tinggi yang dapat
+						mengurangi margin keuntungan.
+					</li>
+					<li>
+						<strong>Mengurangi Biaya:</strong> Memperhatikan
+						<strong>Total Cost</strong> untuk efisiensi pengeluaran.
+					</li>
+					<li>
+						<strong>Maksimalkan Keuntungan:</strong> Fokus pada item dengan
+						<strong>Total Profit</strong> yang tinggi untuk pertumbuhan bisnis
+						yang berkelanjutan.
 					</li>
 				</ul>
 			</div>
